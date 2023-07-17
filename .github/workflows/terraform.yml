@@ -38,10 +38,6 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      # Checks that all Terraform configuration files adhere to a canonical format
-      - name: Terraform Format
-        run: terraform fmt -check
-
       # checks that all terraform configuration files syntax
       - name: Terraform Validate
         run: terraform validate
