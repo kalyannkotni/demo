@@ -56,4 +56,3 @@ jobs:
         if: ${{ github.event.inputs.terraform_action == 'destroy' }}
         run: terraform destroy demoplan -auto-approve
 
-
