@@ -44,15 +44,15 @@ jobs:
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
-        run: terraform plan -out=demoplan
+        run: terraform plan 
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply
         if: ${{ github.event.inputs.terraform_action == 'apply' }}
-        run: terraform apply "demoplan" -auto-approve
+        run: terraform apply -auto-approve
       
       #destroy the infrastructure
       - name: Terraform Destroy
         if: ${{ github.event.inputs.terraform_action == 'destroy' }}
-        run: terraform destroy "demoplan" -auto-approve
+        run: terraform destroy -auto-approve
 
