@@ -1,0 +1,59 @@
+name: 'Terraform-demo-plan'
+
+on:
+  workflow_dispatch:
+    inputs:
+      terraform_action:
+        type: choice
+        description: select terraform action
+        options:
+        - apply
+        - destroy
+  push:
+    branches: 
+      - main 
+  
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ID }}
+      AWS_REGION: 'ap-south-1'
+
+
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init
+        run: terraform init
+
+      # Checks that all Terraform configuration files adhere to a canonical format
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      # checks that all terraform configuration files syntax
+      - name: Terraform Validate
+        run: terraform validate
+
+      # Generates an execution plan for Terraform
+      - name: Terraform Plan
+        run: terraform plan -out=demoplan
+
+      # On push to "main", build or change infrastructure according to Terraform configuration files
+      - name: Terraform Apply
+        if: ${{ github.event.inputs.terraform_action == 'apply' }}
+        run: terraform apply demoplan -auto-approve
+
+
+
