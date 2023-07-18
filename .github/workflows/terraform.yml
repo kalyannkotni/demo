@@ -9,6 +9,7 @@ on:
         options:
         - apply
         - destroy
+        required: true
   push:
     branches: 
       - main 
