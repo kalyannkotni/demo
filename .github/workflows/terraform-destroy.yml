@@ -1,5 +1,17 @@
 name: Terraform Destroy
-on: workflow_call
+on: 
+  workflow_call:
+    secrets: 
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      AWS_REGION:
+        required: true
+      cli_config_credentials_token:
+        required: true
+
+
 jobs:
   terraform-destroy:
     runs-on: ubuntu-latest
