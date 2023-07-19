@@ -39,6 +39,11 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
+      # destroy the infrastructure
+      - name: Terraform Destroy
+        if: ${{ github.event.inputs.terraform_action == 'destroy' }}
+        uses: ./.github/workflows/terraform-destroy.yml
+        
       # checks that all terraform configuration files syntax
       - name: Terraform Validate
         run: terraform validate
@@ -51,9 +56,5 @@ jobs:
       - name: Terraform Apply
         if: ${{ github.event.inputs.terraform_action == 'apply' }}
         run: terraform apply -auto-approve
-      
-      #destroy the infrastructure
-      - name: Terraform Destroy
-        if: ${{ github.event.inputs.terraform_action == 'destroy' }}
-        uses: ./.github/workflows/terraform-destroy.yml
+
 
