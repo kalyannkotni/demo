@@ -38,11 +38,6 @@ jobs:
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
         run: terraform init
-
-      # destroy the infrastructure
-      - name: Terraform Destroy
-        if: ${{ github.event.inputs.terraform_action == 'destroy' }}
-        uses: ./.github/workflows/terraform-destroy.yml
         
       # checks that all terraform configuration files syntax
       - name: Terraform Validate
@@ -56,5 +51,9 @@ jobs:
       - name: Terraform Apply
         if: ${{ github.event.inputs.terraform_action == 'apply' }}
         run: terraform apply -auto-approve
-
+      
+      # destroy the infrastructure
+      - name: Terraform Destroy
+        if: ${{ github.event.inputs.terraform_action == 'destroy' }}
+        uses: ./.github/workflows/terraform-destroy.yml
 
