@@ -61,5 +61,5 @@ jobs:
       # destroy the infrastructure
       - name: Terraform Destroy
         if: ${{ github.event.inputs.terraform_action == 'destroy' }}
-        uses: /home/runner/work/demo/demo/.github/workflows/terraform-destroy.yml
+        uses: ./.github/workflows/terraform-destroy.yml
 
