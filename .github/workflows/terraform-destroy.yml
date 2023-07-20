@@ -7,8 +7,17 @@ on:
         required: true
         type: string
     secrets:
-      access-token:
-        description: 'A token passed from the caller workflow'
+      AWS_ACCESS_KEY_ID:
+        description: 'A token passed from the terraform-apply workflow'
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        description: 'A token passed from the terraform-apply workflow'
+        required: true
+      AWS_REGION:
+        description: 'A token passed from the terraform-apply workflow'
+        required: true
+      cli_config_credentials_token:
+        description: 'A token passed from the terraform-apply workflow'
         required: true
 
 jobs:
