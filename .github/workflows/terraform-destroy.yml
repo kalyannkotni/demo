@@ -2,24 +2,18 @@ name: Terraform Destroy
 on: 
   workflow_call:
     inputs:
-      AWS_ACCESS_KEY_ID:
+      username:
+        description: 'A username passed from the caller workflow'
         required: true
         type: string
-      AWS_SECRET_ACCESS_KEY:
+    secrets:
+      access-token:
+        description: 'A token passed from the caller workflow'
         required: true
-        type: string
-      AWS_REGION:
-        required: true
-        type: string
-      cli_config_credentials_token:
-        required: true
-        type: string
-
 
 jobs:
   terraform-destroy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -28,10 +22,6 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           cli_config_credentials_token: ${{ inputs.TF_API_TOKEN }}
-      
-      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-      - name: Terraform Init
-        run: terraform init
         
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
