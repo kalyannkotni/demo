@@ -54,7 +54,7 @@ jobs:
   
   terraform-destroy:
     if: ${{ github.event.inputs.terraform_action == 'destroy' }}
-    uses: kalyannkotni/demo/.github/workflows/terraform-destroy.yml@nain
+    uses: kalyannkotni/demo/.github/workflows/terraform-destroy.yml@main
     with:
       username: kalyannkotni
     secrets:
