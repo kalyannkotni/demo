@@ -52,7 +52,8 @@ jobs:
       - name: Terraform Apply
         if: ${{ github.event.inputs.terraform_action == 'apply' }}
         run: terraform apply -auto-approve
-  
+        
+  #caller-workflow
   terraform-destroy:
     if: ${{ github.event.inputs.terraform_action == 'destroy' }}
     uses: kalyannkotni/demo/.github/workflows/terraform-destroy.yml@main
